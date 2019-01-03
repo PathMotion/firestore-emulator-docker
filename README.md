@@ -35,23 +35,21 @@ This image comes with the following options: `--no-store-on-disk` and `--consist
 start-datastore --no-store-on-disk --consistency=1.0
 ```
 
-## Creating a Datastore emulator with Docker Compose
+## Creating a Firestore emulator with Docker Compose
 
-The easiest way to create an emulator with this image is by using [Docker Compose](https://docs.docker.com/compose). The following snippet can be used as a `docker-compose.yml` for a datastore emulator:
+The easiest way to create an emulator with this image is by using [Docker Compose](https://docs.docker.com/compose). The following snippet can be used as a `docker-compose.yml` for a firestore emulator:
 
 ```YAML
 version: "2"
 
 services:
-  datastore:
-    image: singularities/datastore-emulator
+  firestore:
+    image: perrystallings/cloud-firestore-emulator
     environment:
-      - DATASTORE_PROJECT_ID=project-test
-      - DATASTORE_LISTEN_ADDRESS=0.0.0.0:8081
-    ports:
-      - "8081:8081"
+      - FIRESTORE_PROJECT_ID=project-test
+  app:
+    image: your-app-image
+    environment:
+      - DATASTORE_EMULATOR_HOST=firestore
+      - FIRESTORE_PROJECT_ID=project-test
 ```
-
-### Persistence
-
-The image has a volume mounted at `/opt/data`. To maintain states between restarts, mount a volume at this location.
