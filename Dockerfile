@@ -1,5 +1,5 @@
 # Version. Can change in build progress
-ARG GCLOUD_SDK_VERSION=alpine
+ARG GCLOUD_SDK_VERSION=293.0.0-alpine
 
 # Use google cloud sdk
 FROM google/cloud-sdk:$GCLOUD_SDK_VERSION
@@ -13,7 +13,5 @@ RUN apk add --update --no-cache openjdk8-jre &&\
 VOLUME /opt/data
 
 COPY start-firestore .
-
-EXPOSE 8080
 
 ENTRYPOINT ["./start-firestore"]
